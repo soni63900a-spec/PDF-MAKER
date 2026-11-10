@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#172554">
+<title>Image2PDF — Free Image to PDF Converter</title>
+<style>
+:root{--navy:#172554;--blue:#2563eb;--ink:#172033;--muted:#64748b;--line:#e2e8f0;--bg:#f5f7fb;--white:#fff;--green:#15803d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{background:linear-gradient(120deg,#172554,#1d4ed8);color:white;padding:24px max(20px,calc((100% - 1050px)/2))}
+.brand{font-size:25px;font-weight:800;letter-spacing:-.7px}.brand span{color:#93c5fd}
+header p{margin:5px 0 0;color:#dbeafe}
+main{max-width:1050px;margin:25px auto;padding:0 18px 50px}
+.ad{background:#fff;border:1px dashed #cbd5e1;border-radius:12px;min-height:82px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#64748b;margin:18px 0;padding:12px}
+.ad small{font-size:10px;letter-spacing:1.2px;font-weight:700;color:#94a3b8}.ad strong{font-size:14px;font-weight:500;margin-top:4px}
+.layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,.8fr);gap:18px;align-items:start}
+.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 5px 20px #0f172a08}
+h1{font-size:23px;margin:0 0 5px}h2{font-size:17px;margin:0 0 14px}.muted{color:var(--muted)}
+.drop{border:2px dashed #93b4f8;border-radius:13px;background:#f8fbff;padding:27px 15px;text-align:center;cursor:pointer;transition:.15s}
+.drop.drag{background:#eff6ff;border-color:var(--blue)}.drop .symbol{font-size:30px}.drop b{display:block;margin:5px 0}.drop small{color:var(--muted)}
+button,.button{border:0;border-radius:10px;background:var(--blue);color:white;padding:11px 16px;font-weight:700;font-size:14px;cursor:pointer}
+button:disabled{opacity:.45;cursor:not-allowed}.secondary{background:#eff6ff;color:#1d4ed8}.danger{background:#fff1f2;color:#be123c;padding:7px 10px}
+input,select{font:inherit;border:1px solid #cbd5e1;border-radius:9px;padding:9px;background:white;color:var(--ink)}
+input[type=file]{display:none}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px;align-items:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(125px,1fr));gap:12px;margin-top:18px}
+.thumb{border:1px solid var(--line);border-radius:11px;padding:8px;min-width:0;background:white}
+.thumb img{width:100%;height:105px;object-fit:contain;background:#f8fafc;border-radius:7px}
+.thumb .name{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:7px 0}
+.thumb .actions{display:flex;gap:5px;justify-content:space-between}.thumb button{padding:5px 8px;font-size:12px}
+.field{display:grid;gap:6px;margin:13px 0}.field label{font-weight:650;font-size:13px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.counter{background:#f1f5f9;border-radius:10px;padding:12px;margin:15px 0;font-size:13px}
+.counter strong{display:block;font-size:17px;color:#1e40af}.status{font-size:13px;margin-top:12px;min-height:20px}
+.note{font-size:12px;color:var(--muted);margin-top:14px}
+.full{width:100%;margin-top:8px;padding:13px}
+footer{max-width:1050px;margin:auto;padding:0 18px 28px;color:var(--muted);font-size:12px;text-align:center}
+@media(max-width:760px){.layout{grid-template-columns:1fr}header{padding:20px}.panel{padding:17px}}
+</style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4288480701078341"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+<header><div class="brand">Image<span>2</span>PDF</div><p>Turn your pictures into one clean PDF — free, right in your browser.</p></header>
+<main>
+  <div class="ad" aria-label="Advertisement"><small>ADVERTISEMENT</small><strong>Ad space — connect your approved ad network here</strong></div>
+  <div class="layout">
+    <section class="panel">
+      <h1>Image to PDF converter</h1><div class="muted">Add one or more pictures, arrange them, then create your PDF.</div>
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose images">
+        <div class="symbol">🖼️</div><b>Drop images here</b><small>or choose files from your device</small>
+        <div style="margin-top:13px"><button type="button" id="choose">Select images</button></div>
+      </div>
+      <input id="files" type="file" accept="image/jpeg,image/png,image/webp" multiple>
+      <div class="toolbar">
+        <span id="fileCount" class="muted">No images selected</span>
+        <button type="button" class="secondary" id="clear">Clear all</button>
+      </div>
+      <div class="grid" id="previews"></div>
+      <div class="status" id="status" role="status"></div>
+    </section>
+    <aside class="panel">
+      <h2>PDF settings</h2>
+      <div class="field"><label for="page">Page size</label><select id="page"><option value="a4">A4</option><option value="letter">US Letter</option><option value="fit">Fit image</option></select></div>
+      <div class="field"><label for="orientation">Orientation</label><select id="orientation"><option value="portrait">Portrait</option><option value="landscape">Landscape</option></select></div>
+      <div class="field"><label for="margin">Margin</label><select id="margin"><option value="10">Small (10 mm)</option><option value="0">None</option><option value="15">Large (15 mm)</option></select></div>
+      <div class="counter"><span class="muted">Your daily free allowance</span><strong id="remaining">1 PDF available today</strong><span id="resetText" class="muted">Resets at local midnight.</span></div>
+      <div class="ad"><small>ADVERTISEMENT</small><strong>Ad space before PDF generation</strong></div>
+      <button class="full" id="generate" type="button" disabled>Generate PDF</button>
+      <div class="note">One PDF generation per day on this browser. Your images stay on your device; they are not uploaded to a server.</div>
+    </aside>
+  </div>
+  <div class="ad"><small>ADVERTISEMENT</small><strong>Ad space — connect your approved ad network here</strong></div>
+</main>
+<footer>Image2PDF · Free daily conversion · Images are processed locally in your browser.</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQ3U8w4f5Z5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5x==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const filesInput=$('files'), previews=$('previews'), status=$('status');
+  let images=[];
+  const dayKey=()=>new Date().toLocaleDateString('en-CA');
+  const storageKey='image2pdf_used_day';
+  function usedToday(){return localStorage.getItem(storageKey)===dayKey();}
+  function updateAllowance(){
+    const used=usedToday();
+    $('remaining').textContent=used?'Daily free PDF used':'1 PDF available today';
+    $('remaining').style.color=used?'#b91c1c':'#1e40af';
+    $('generate').disabled=!images.length||used;
+  }
+  function say(msg){status.textContent=msg;}
+  function addFiles(list){
+    const accepted=[...list].filter(f=>/^image\/(jpeg|png|webp)$/.test(f.type));
+    if(accepted.length!==list.length) say('Some files were skipped. Please use JPG, PNG or WEBP images.');
+    accepted.forEach(file=>{
+      const url=URL.createObjectURL(file);
+      images.push({file,url,id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random())});
+    });
+    render();
+  }
+  function render(){
+    previews.innerHTML='';
+    images.forEach((item,index)=>{
+      const card=document.createElement('div');card.className='thumb';
+      const img=document.createElement('img');img.src=item.url;img.alt=item.file.name;
+      const name=document.createElement('div');name.className='name';name.textContent=item.file.name;
+      const actions=document.createElement('div');actions.className='actions';
+      const left=document.createElement('button');left.className='secondary';left.textContent='←';left.title='Move earlier';left.disabled=index===0;left.onclick=()=>move(index,-1);
+      const right=document.createElement('button');right.className='secondary';right.textContent='→';right.title='Move later';right.disabled=index===images.length-1;right.onclick=()=>move(index,1);
+      const remove=document.createElement('button');remove.className='danger';remove.textContent='×';remove.title='Remove image';remove.onclick=()=>removeImage(index);
+      actions.append(left,right,remove);card.append(img,name,actions);previews.append(card);
+    });
+    $('fileCount').textContent=images.length?`${images.length} image${images.length===1?'':'s'} selected`:'No images selected';
+    updateAllowance();
+  }
+  function move(i,delta){const j=i+delta;[images[i],images[j]]=[images[j],images[i]];render();}
+  function removeImage(i){URL.revokeObjectURL(images[i].url);images.splice(i,1);render();}
+  $('choose').onclick=()=>filesInput.click();
+  $('drop').onclick=e=>{if(e.target.id!=='choose')filesInput.click();};
+  $('drop').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();filesInput.click();}});
+  filesInput.onchange=e=>{addFiles(e.target.files);filesInput.value='';};
+  $('clear').onclick=()=>{images.forEach(x=>URL.revokeObjectURL(x.url));images=[];render();say('All images cleared.');};
+  ['dragenter','dragover'].forEach(ev=>$('drop').addEventListener(ev,e=>{e.preventDefault();$('drop').classList.add('drag');}));
+  ['dragleave','drop'].forEach(ev=>$('drop').addEventListener(ev,e=>{e.preventDefault();$('drop').classList.remove('drag');}));
+  $('drop').addEventListener('drop',e=>addFiles(e.dataTransfer.files));
+
+  function loadImage(file){return new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=reject;img.src=URL.createObjectURL(file);});}
+  $('generate').onclick=async()=>{
+    if(!images.length||usedToday())return;
+    if(!window.jspdf){say('PDF library did not load. Check your internet connection and refresh.');return;}
+    const btn=$('generate');btn.disabled=true;btn.textContent='Creating PDF…';say('Preparing your PDF…');
+    try{
+      const {jsPDF}=window.jspdf, page=$('page').value, orientation=$('orientation').value, margin=Number($('margin').value);
+      let doc=null;
+      for(let i=0;i<images.length;i++){
+        const img=await loadImage(images[i].file);
+        const ratio=img.width/img.height;
+        let pw,ph,orient=orientation;
+        if(page==='a4'){pw=210;ph=297;} else if(page==='letter'){pw=215.9;ph=279.4;} else {pw=210;ph=210/ratio;orient=ratio>=1?'landscape':'portrait';}
+        if(page!=='fit'&&orient==='landscape'&&ph>pw)[pw,ph]=[ph,pw];
+        if(page!=='fit'&&orient==='portrait'&&pw>ph)[pw,ph]=[ph,pw];
+        if(page==='fit'){pw=ratio>=1?297:210;ph=pw/ratio;if(ph>297){ph=297;pw=ph*ratio;}}
+        const pdfOrient=pw>ph?'landscape':'portrait';
+        if(!doc)doc=new jsPDF({orientation:pdfOrient,unit:'mm',format:[pw,ph],compress:true});
+        else doc.addPage([pw,ph],pdfOrient);
+        const maxW=Math.max(1,pw-2*margin),maxH=Math.max(1,ph-2*margin);
+        const scale=Math.min(maxW/img.width,maxH/img.height);
+        const w=img.width*scale,h=img.height*scale;
+        const x=(pw-w)/2,y=(ph-h)/2;
+        const canvas=document.createElement('canvas');canvas.width=img.naturalWidth;canvas.height=img.naturalHeight;
+        const ctx=canvas.getContext('2d');ctx.fillStyle='#ffffff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0);
+        doc.addImage(canvas.toDataURL('JPEG',.92),'JPEG',x,y,w,h,undefined,'FAST');
+        URL.revokeObjectURL(img.src);
+      }
+      const blob=doc.output('blob');const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');a.href=url;a.download='images-to-pdf.pdf';document.body.appendChild(a);a.click();a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),1500);
+      localStorage.setItem(storageKey,dayKey());updateAllowance();say('Your PDF has been created and downloaded. Your free daily generation is used.');
+    }catch(err){console.error(err);say('Could not create the PDF. Try fewer or smaller images.');}
+    finally{btn.textContent='Generate PDF';updateAllowance();}
+  };
+  updateAllowance();
+})();
+</script>
+</body>
+</html>
