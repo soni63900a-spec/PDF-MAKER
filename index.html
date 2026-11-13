@@ -29,137 +29,249 @@ input[type=file]{display:none}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margi
 .thumb .name{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:7px 0}
 .thumb .actions{display:flex;gap:5px;justify-content:space-between}.thumb button{padding:5px 8px;font-size:12px}
 .field{display:grid;gap:6px;margin:13px 0}.field label{font-weight:650;font-size:13px}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.counter{background:#f1f5f9;border-radius:10px;padding:12px;margin:15px 0;font-size:13px}
-.counter strong{display:block;font-size:17px;color:#1e40af}.status{font-size:13px;margin-top:12px;min-height:20px}
+.status{font-size:13px;margin-top:12px;min-height:20px}
 .note{font-size:12px;color:var(--muted);margin-top:14px}
 .full{width:100%;margin-top:8px;padding:13px}
 footer{max-width:1050px;margin:auto;padding:0 18px 28px;color:var(--muted);font-size:12px;text-align:center}
 @media(max-width:760px){.layout{grid-template-columns:1fr}header{padding:20px}.panel{padding:17px}}
 </style>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4288480701078341"
-     crossorigin="anonymous"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4288480701078341" crossorigin="anonymous"></script>
 </head>
 <body>
-<header><div class="brand">Image<span>2</span>PDF</div><p>Turn your pictures into one clean PDF — free, right in your browser.</p></header>
+<header>
+  <div class="brand">Image<span>2</span>PDF</div>
+  <p>Convert your pictures into a clean PDF — free, fast, and works offline.</p>
+</header>
 <main>
-  <div class="ad" aria-label="Advertisement"><small>ADVERTISEMENT</small><strong>Ad space — connect your approved ad network here</strong></div>
+  <div class="ad" aria-label="Advertisement"><small>ADVERTISEMENT</small><strong>Ad space</strong></div>
   <div class="layout">
     <section class="panel">
-      <h1>Image to PDF converter</h1><div class="muted">Add one or more pictures, arrange them, then create your PDF.</div>
+      <h1>Image to PDF Converter</h1>
+      <div class="muted">Select pictures, arrange them, and generate your PDF instantly.</div>
       <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose images">
-        <div class="symbol">🖼️</div><b>Drop images here</b><small>or choose files from your device</small>
-        <div style="margin-top:13px"><button type="button" id="choose">Select images</button></div>
+        <div class="symbol">📁</div>
+        <b>Drop images here</b>
+        <small>or click to browse from device</small>
+        <div style="margin-top:13px"><button type="button" id="choose">Select Images</button></div>
       </div>
       <input id="files" type="file" accept="image/jpeg,image/png,image/webp" multiple>
       <div class="toolbar">
         <span id="fileCount" class="muted">No images selected</span>
-        <button type="button" class="secondary" id="clear">Clear all</button>
+        <button type="button" class="secondary" id="clear">Clear All</button>
       </div>
       <div class="grid" id="previews"></div>
       <div class="status" id="status" role="status"></div>
     </section>
     <aside class="panel">
-      <h2>PDF settings</h2>
-      <div class="field"><label for="page">Page size</label><select id="page"><option value="a4">A4</option><option value="letter">US Letter</option><option value="fit">Fit image</option></select></div>
-      <div class="field"><label for="orientation">Orientation</label><select id="orientation"><option value="portrait">Portrait</option><option value="landscape">Landscape</option></select></div>
-      <div class="field"><label for="margin">Margin</label><select id="margin"><option value="10">Small (10 mm)</option><option value="0">None</option><option value="15">Large (15 mm)</option></select></div>
-      <div class="counter"><span class="muted">Your daily free allowance</span><strong id="remaining">1 PDF available today</strong><span id="resetText" class="muted">Resets at local midnight.</span></div>
-      <div class="ad"><small>ADVERTISEMENT</small><strong>Ad space before PDF generation</strong></div>
+      <h2>PDF Settings</h2>
+      <div class="field">
+        <label for="page">Page Size</label>
+        <select id="page">
+          <option value="a4">A4</option>
+          <option value="letter">US Letter</option>
+          <option value="fit">Fit Image</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="orientation">Orientation</label>
+        <select id="orientation">
+          <option value="portrait">Portrait</option>
+          <option value="landscape">Landscape</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="margin">Margin</label>
+        <select id="margin">
+          <option value="10">Small (10 mm)</option>
+          <option value="0">None</option>
+          <option value="15">Large (15 mm)</option>
+        </select>
+      </div>
+      <div class="ad"><small>ADVERTISEMENT</small><strong>Ad space</strong></div>
       <button class="full" id="generate" type="button" disabled>Generate PDF</button>
-      <div class="note">One PDF generation per day on this browser. Your images stay on your device; they are not uploaded to a server.</div>
+      <div class="note">Your files remain secure on your device and are never uploaded to any server. Fully functional offline after initial load.</div>
     </aside>
   </div>
-  <div class="ad"><small>ADVERTISEMENT</small><strong>Ad space — connect your approved ad network here</strong></div>
+  <div class="ad"><small>ADVERTISEMENT</small><strong>Ad space</strong></div>
 </main>
-<footer>Image2PDF · Free daily conversion · Images are processed locally in your browser.</footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQ3U8w4f5Z5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5f5x5x==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<footer>Image2PDF · Fast & Secure · Local Browser Processing</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 (() => {
   const $ = id => document.getElementById(id);
-  const filesInput=$('files'), previews=$('previews'), status=$('status');
-  let images=[];
-  const dayKey=()=>new Date().toLocaleDateString('en-CA');
-  const storageKey='image2pdf_used_day';
-  function usedToday(){return localStorage.getItem(storageKey)===dayKey();}
-  function updateAllowance(){
-    const used=usedToday();
-    $('remaining').textContent=used?'Daily free PDF used':'1 PDF available today';
-    $('remaining').style.color=used?'#b91c1c':'#1e40af';
-    $('generate').disabled=!images.length||used;
+  const filesInput = $('files'), previews = $('previews'), status = $('status');
+  let images = [];
+
+  function updateButton() {
+    $('generate').disabled = !images.length;
   }
-  function say(msg){status.textContent=msg;}
-  function addFiles(list){
-    const accepted=[...list].filter(f=>/^image\/(jpeg|png|webp)$/.test(f.type));
-    if(accepted.length!==list.length) say('Some files were skipped. Please use JPG, PNG or WEBP images.');
-    accepted.forEach(file=>{
-      const url=URL.createObjectURL(file);
-      images.push({file,url,id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random())});
+
+  function say(msg) { status.textContent = msg; }
+
+  function addFiles(list) {
+    const accepted = [...list].filter(f => /^image\/(jpeg|png|webp)$/.test(f.type));
+    if (accepted.length !== list.length) {
+      say('Some files were skipped. Please use JPG, PNG or WEBP images.');
+    }
+    accepted.forEach(file => {
+      const url = URL.createObjectURL(file);
+      images.push({ file, url, id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random()) });
     });
     render();
   }
-  function render(){
-    previews.innerHTML='';
-    images.forEach((item,index)=>{
-      const card=document.createElement('div');card.className='thumb';
-      const img=document.createElement('img');img.src=item.url;img.alt=item.file.name;
-      const name=document.createElement('div');name.className='name';name.textContent=item.file.name;
-      const actions=document.createElement('div');actions.className='actions';
-      const left=document.createElement('button');left.className='secondary';left.textContent='←';left.title='Move earlier';left.disabled=index===0;left.onclick=()=>move(index,-1);
-      const right=document.createElement('button');right.className='secondary';right.textContent='→';right.title='Move later';right.disabled=index===images.length-1;right.onclick=()=>move(index,1);
-      const remove=document.createElement('button');remove.className='danger';remove.textContent='×';remove.title='Remove image';remove.onclick=()=>removeImage(index);
-      actions.append(left,right,remove);card.append(img,name,actions);previews.append(card);
-    });
-    $('fileCount').textContent=images.length?`${images.length} image${images.length===1?'':'s'} selected`:'No images selected';
-    updateAllowance();
-  }
-  function move(i,delta){const j=i+delta;[images[i],images[j]]=[images[j],images[i]];render();}
-  function removeImage(i){URL.revokeObjectURL(images[i].url);images.splice(i,1);render();}
-  $('choose').onclick=()=>filesInput.click();
-  $('drop').onclick=e=>{if(e.target.id!=='choose')filesInput.click();};
-  $('drop').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();filesInput.click();}});
-  filesInput.onchange=e=>{addFiles(e.target.files);filesInput.value='';};
-  $('clear').onclick=()=>{images.forEach(x=>URL.revokeObjectURL(x.url));images=[];render();say('All images cleared.');};
-  ['dragenter','dragover'].forEach(ev=>$('drop').addEventListener(ev,e=>{e.preventDefault();$('drop').classList.add('drag');}));
-  ['dragleave','drop'].forEach(ev=>$('drop').addEventListener(ev,e=>{e.preventDefault();$('drop').classList.remove('drag');}));
-  $('drop').addEventListener('drop',e=>addFiles(e.dataTransfer.files));
 
-  function loadImage(file){return new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=reject;img.src=URL.createObjectURL(file);});}
-  $('generate').onclick=async()=>{
-    if(!images.length||usedToday())return;
-    if(!window.jspdf){say('PDF library did not load. Check your internet connection and refresh.');return;}
-    const btn=$('generate');btn.disabled=true;btn.textContent='Creating PDF…';say('Preparing your PDF…');
-    try{
-      const {jsPDF}=window.jspdf, page=$('page').value, orientation=$('orientation').value, margin=Number($('margin').value);
-      let doc=null;
-      for(let i=0;i<images.length;i++){
-        const img=await loadImage(images[i].file);
-        const ratio=img.width/img.height;
-        let pw,ph,orient=orientation;
-        if(page==='a4'){pw=210;ph=297;} else if(page==='letter'){pw=215.9;ph=279.4;} else {pw=210;ph=210/ratio;orient=ratio>=1?'landscape':'portrait';}
-        if(page!=='fit'&&orient==='landscape'&&ph>pw)[pw,ph]=[ph,pw];
-        if(page!=='fit'&&orient==='portrait'&&pw>ph)[pw,ph]=[ph,pw];
-        if(page==='fit'){pw=ratio>=1?297:210;ph=pw/ratio;if(ph>297){ph=297;pw=ph*ratio;}}
-        const pdfOrient=pw>ph?'landscape':'portrait';
-        if(!doc)doc=new jsPDF({orientation:pdfOrient,unit:'mm',format:[pw,ph],compress:true});
-        else doc.addPage([pw,ph],pdfOrient);
-        const maxW=Math.max(1,pw-2*margin),maxH=Math.max(1,ph-2*margin);
-        const scale=Math.min(maxW/img.width,maxH/img.height);
-        const w=img.width*scale,h=img.height*scale;
-        const x=(pw-w)/2,y=(ph-h)/2;
-        const canvas=document.createElement('canvas');canvas.width=img.naturalWidth;canvas.height=img.naturalHeight;
-        const ctx=canvas.getContext('2d');ctx.fillStyle='#ffffff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0);
-        doc.addImage(canvas.toDataURL('JPEG',.92),'JPEG',x,y,w,h,undefined,'FAST');
+  function render() {
+    previews.innerHTML = '';
+    images.forEach((item, index) => {
+      const card = document.createElement('div');
+      card.className = 'thumb';
+      const img = document.createElement('img');
+      img.src = item.url;
+      img.alt = item.file.name;
+      const name = document.createElement('div');
+      name.className = 'name';
+      name.textContent = item.file.name;
+      const actions = document.createElement('div');
+      actions.className = 'actions';
+      
+      const left = document.createElement('button');
+      left.className = 'secondary';
+      left.textContent = '←';
+      left.title = 'Move earlier';
+      left.disabled = index === 0;
+      left.onclick = () => move(index, -1);
+
+      const right = document.createElement('button');
+      right.className = 'secondary';
+      right.textContent = '→';
+      right.title = 'Move later';
+      right.disabled = index === images.length - 1;
+      right.onclick = () => move(index, 1);
+
+      const remove = document.createElement('button');
+      remove.className = 'danger';
+      remove.textContent = '×';
+      remove.title = 'Remove image';
+      remove.onclick = () => removeImage(index);
+
+      actions.append(left, right, remove);
+      card.append(img, name, actions);
+      previews.append(card);
+    });
+
+    $('fileCount').textContent = images.length ? `${images.length} image${images.length === 1 ? '' : 's'} selected` : 'No images selected';
+    updateButton();
+  }
+
+  function move(i, delta) {
+    const j = i + delta;
+    [images[i], images[j]] = [images[j], images[i]];
+    render();
+  }
+
+  function removeImage(i) {
+    URL.revokeObjectURL(images[i].url);
+    images.splice(i, 1);
+    render();
+  }
+
+  $('choose').onclick = () => filesInput.click();
+  $('drop').onclick = e => { if (e.target.id !== 'choose') filesInput.click(); };
+  $('drop').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); filesInput.click(); } });
+  filesInput.onchange = e => { addFiles(e.target.files); filesInput.value = ''; };
+  $('clear').onclick = () => {
+    images.forEach(x => URL.revokeObjectURL(x.url));
+    images = [];
+    render();
+    say('All images cleared.');
+  };
+
+  ['dragenter', 'dragover'].forEach(ev => $('drop').addEventListener(ev, e => { e.preventDefault(); $('drop').classList.add('drag'); }));
+  ['dragleave', 'drop'].forEach(ev => $('drop').addEventListener(ev, e => { e.preventDefault(); $('drop').classList.remove('drag'); }));
+  $('drop').addEventListener('drop', e => addFiles(e.dataTransfer.files));
+
+  function loadImage(file) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = reject;
+      img.src = URL.createObjectURL(file);
+    });
+  }
+
+  $('generate').onclick = async () => {
+    if (!images.length) return;
+    if (!window.jspdf) {
+      say('PDF library not loaded. Please connect to the internet once to load/cache it, or check your connection.');
+      return;
+    }
+    const btn = $('generate');
+    btn.disabled = true;
+    btn.textContent = 'Creating PDF…';
+    say('Preparing your PDF…');
+
+    try {
+      const { jsPDF } = window.jspdf;
+      const page = $('page').value;
+      const orientation = $('orientation').value;
+      const margin = Number($('margin').value);
+      let doc = null;
+
+      for (let i = 0; i < images.length; i++) {
+        const img = await loadImage(images[i].file);
+        const ratio = img.width / img.height;
+        let pw, ph, orient = orientation;
+
+        if (page === 'a4') { pw = 210; ph = 297; }
+        else if (page === 'letter') { pw = 215.9; ph = 279.4; }
+        else { pw = 210; ph = 210 / ratio; orient = ratio >= 1 ? 'landscape' : 'portrait'; }
+
+        if (page !== 'fit' && orient === 'landscape' && ph > pw) [pw, ph] = [ph, pw];
+        if (page !== 'fit' && orient === 'portrait' && pw > ph) [pw, ph] = [ph, pw];
+        if (page === 'fit') { pw = ratio >= 1 ? 297 : 210; ph = pw / ratio; if (ph > 297) { ph = 297; pw = ph * ratio; } }
+
+        const pdfOrient = pw > ph ? 'landscape' : 'portrait';
+        if (!doc) doc = new jsPDF({ orientation: pdfOrient, unit: 'mm', format: [pw, ph], compress: true });
+        else doc.addPage([pw, ph], pdfOrient);
+
+        const maxW = Math.max(1, pw - 2 * margin);
+        const maxH = Math.max(1, ph - 2 * margin);
+        const scale = Math.min(maxW / img.width, maxH / img.height);
+        const w = img.width * scale, h = img.height * scale;
+        const x = (pw - w) / 2, y = (ph - h) / 2;
+
+        const canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+
+        doc.addImage(canvas.toDataURL('JPEG', 0.92), 'JPEG', x, y, w, h, undefined, 'FAST');
         URL.revokeObjectURL(img.src);
       }
-      const blob=doc.output('blob');const url=URL.createObjectURL(blob);
-      const a=document.createElement('a');a.href=url;a.download='images-to-pdf.pdf';document.body.appendChild(a);a.click();a.remove();
-      setTimeout(()=>URL.revokeObjectURL(url),1500);
-      localStorage.setItem(storageKey,dayKey());updateAllowance();say('Your PDF has been created and downloaded. Your free daily generation is used.');
-    }catch(err){console.error(err);say('Could not create the PDF. Try fewer or smaller images.');}
-    finally{btn.textContent='Generate PDF';updateAllowance();}
+
+      const blob = doc.output('blob');
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'images-to-pdf.pdf';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+      say('Your PDF has been created and downloaded successfully.');
+    } catch (err) {
+      console.error(err);
+      say('Could not create the PDF. Try fewer or smaller images.');
+    } finally {
+      btn.textContent = 'Generate PDF';
+      updateButton();
+    }
   };
-  updateAllowance();
+
+  updateButton();
 })();
 </script>
 </body>
